@@ -1,0 +1,27 @@
+<app-header-version-one></app-header-version-one>
+<main class="main">
+    <section class="container">
+        <section class="title-container">
+            <h1>Entre</h1>
+        </section>
+        <div class="card">
+            <section class="form-container">
+                <form class="form">
+                    <!-- <label for="email">E-mail</label> -->
+                    <input type="text" class="input email" id="email" [formControl]="email" placeholder="E-mail" maxlength="50">
+                    <!-- <label for="password">Password</label> -->
+                    <input type="password" class="input password" id="password" [formControl]="password" placeholder="Password" maxlength="30">
+                    <button (submit)="submitForm()" class="button-form">Fazer Login</button>
+                </form>
+            </section>
+            <section class="option-container">
+                <span class="option">
+                    Esqueceu a senha? <a routerLink="#">Recuperar Senha</a>
+                </span>
+                <span class="option">
+                    Ainda não possui conta? <a routerLink="../singup">Cadastre-se</a>
+                </span>
+            </section>
+        </div>
+    </section>
+</main>

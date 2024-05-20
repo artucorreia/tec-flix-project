@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+@import './config-scss/reset.scss';
+@import './config-scss/variables.scss';
+@import "primeicons/primeicons.css";
+* {
+    font-family: $font-family;
+}
+
+body {
+    background-color: $off-white;
+    
+}

@@ -1,0 +1,147 @@
+@import '../../../config-scss/variables.scss';
+
+.header {
+    display: flex;
+    align-items: center;
+
+    height: 80px;
+    background-color: $white;
+
+    justify-content: space-between;
+
+    padding: 0 20px;
+
+    box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.041);
+}
+
+.img-container {
+    img {
+        width: 200px;
+    }
+}
+
+.category-container {
+    display: flex;
+    align-items: center;
+    
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    
+    padding: 0 10px;
+
+    width: 45%;
+
+    border: 1px solid $black;
+    border-radius: 12px;
+    .input {
+        font-size: 0.9em;
+        width: 100%;
+        padding: 10px;
+        border: none;
+        outline: none;
+    }
+}
+
+
+.more-option-container {
+    width: 275px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    > .cart-container {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+
+        transition: 0.2s;
+    }
+
+    .cart-container:hover {
+        cursor: pointer;
+        background-color: $primary-color-effect;
+        color: $white;
+    }
+
+    > .button-link {
+        display: block;
+
+        text-decoration: none;
+        color: $black;
+        
+        padding: 6px;
+        border: 1px solid $black;
+        border-radius: 3px;
+        
+        transition: 0.2s;
+    }
+    .button-link:hover {
+        cursor: pointer;
+
+        background-color: $primary-color-effect;
+        color: $white;
+
+        border: none;
+    }
+}
+
+.menu-bars-container {
+    display: none;
+}
+
+@media (max-width: 910px) {
+    .search-container {
+        width: 30%;
+    }
+}
+
+@media (max-width: 750px) {
+    .header {
+        padding-left: 59.2px;
+
+        > * {
+            display: none;
+        }
+
+        .img-container {
+            display: block;
+            
+            margin: auto;
+        }
+
+        .menu-bars-container {
+            display: block;
+            border-radius: 50%;
+            transition: 0.15s;
+            i {
+                padding: 10px;
+            }
+
+        }
+
+        .menu-bars-container:hover {
+            background-color: $primary-color-effect;
+
+            i {
+                color: $white;
+
+            }
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .header {
+        padding: 0 10px;
+
+        .img-container {
+            margin: 0;
+        }
+    }
+}

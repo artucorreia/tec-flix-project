@@ -1,0 +1,26 @@
+<app-header-version-one></app-header-version-one>
+<main class="main">
+    <section class="container">
+        <section class="title-container">
+            <h1>Inscreva-se</h1>
+        </section>
+        <div class="card">
+            <section class="form-container">
+                <form class="form">
+                    <input type="text" class="input name" [formControl]="fullName" placeholder="Nome Completo" maxlength="50">
+
+                    <input type="text" class="input email" [formControl]="email" placeholder="E-mail" maxlength="50">
+
+                    <input type="password" class="input password" [formControl]="password" placeholder="Password" maxlength="30">
+                    
+                    <button (submit)="submitForm()" class="button-form">Criar Conta</button>
+                </form>
+            </section>
+            <section class="option-container">
+                <span class="option">
+                    Já possui uma conta? <a routerLink="../login">Fazer login</a>
+                </span>
+            </section>
+        </div>
+    </section>
+</main>
