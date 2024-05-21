@@ -7,10 +7,8 @@
         <div class="card">
             <section class="form-container">
                 <form class="form">
-                    <!-- <label for="email">E-mail</label> -->
-                    <input type="text" class="input email" id="email" [formControl]="email" placeholder="E-mail" maxlength="50">
-                    <!-- <label for="password">Password</label> -->
-                    <input type="password" class="input password" id="password" [formControl]="password" placeholder="Password" maxlength="30">
+                    <input type="text" class="input separator" id="email" [formControl]="email" placeholder="E-mail" maxlength="50">
+                    <app-password-component  class="separator" (passwordEmitter)="getPassword($event)" ></app-password-component>
                     <button (submit)="submitForm()" class="button-form">Fazer Login</button>
                 </form>
             </section>

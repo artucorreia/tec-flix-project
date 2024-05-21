@@ -1,18 +1,31 @@
+<!-- <span #parent> -->
 <header class="header">
-    <section class="img-container" routerLink="">
-        <img src="../../../assets/logo3.png" alt="Logo TecFlix">
-    </section>
     
+    
+    <!-- <section class="separator"></section> -->
+
+    <section class="title-container" routerLink="">
+        <h1 class="tecflix-title" (click)="navigate('/')">TecFlix</h1>
+    </section>
+
+    <section class="menu-bars-container" (click)="changeDisplaySideMenu(true)" #parentButton>
+        @if (!displaySideMenu) {
+            <i class="pi pi-bars" style="font-size: 1.2rem;"></i>
+        } @else {
+            <i class="pi pi-times" style="font-size: 1.2rem;"></i>
+        }
+    </section>
+<!--     
     <section class="category-container">
         <span>
             Categorias
         </span>
         <i class="pi pi-angle-down"></i>
-    </section>
-    
+    </section> -->
+
     <section class="search-container">
         <i class="pi pi-search"></i>
-        <input type="text" [(ngModel)]="searchText" (keyup.enter)="search($event)" class="input" placeholder="Pesquise por algo" maxlength="100">
+        <input type="text" [(ngModel)]="searchText" (keyup.enter)="search()" class="input" placeholder="Pesquise por algo" maxlength="100">
     </section>
     
     <section class="more-option-container">
@@ -20,11 +33,85 @@
         <div class="cart-container">
             <i class="pi pi-shopping-cart" style="font-size: 1.2rem;"></i>
         </div>
-        <a (click)="navigate('login')" class="button-link">Fazer login </a>
-        <a (click)="navigate('singup')" class="button-link">Cadastrar-se </a>
+        <a (click)="navigate('/join/login')" class="button-link">Fazer login </a>
+        <a (click)="navigate('/join/singup')" class="button-link">Cadastrar-se </a>
     </section>
 
-    <section class="menu-bars-container">
-        <i class="pi pi-bars" style="font-size: 1.2rem;"></i>
-    </section>
+    <!-- <section class="more-option-mobile-container">
+        <div class="search-mobile-container">
+            <i class="pi pi-search" style="font-size: 1.2rem;"></i>
+        </div>
+        <div class="cart-mobile-container">
+            <i class="pi pi-shopping-cart" style="font-size: 1.2rem;"></i>
+        </div>
+    </section> -->
 </header>
+<hr class="divider">
+<nav class="navbar-category">
+    <section class="category-container">
+        <div class="category"><a class="category-link">Desenvolvimento</a></div>
+        <div class="category"><a class="category-link">Banco de dados</a></div>
+        <div class="category"><a class="category-link">Alguma coisa</a></div>
+        <div class="category"><a class="category-link">Outra coisa</a></div>
+        <div class="category"><a class="category-link">Mais uma coisa</a></div>
+    </section>
+</nav>
+
+<span #parentMenu>
+
+    @if (displaySideMenu) {
+        <nav class="menu-container">
+            <ul class="menu-list">
+                <li class="menu-item">
+                    <a 
+                    (click)="navigate('/join/login'); 
+                    changeDisplaySideMenu(false)" 
+                    class="menu-item"
+                    >
+                        Fazer Login
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a 
+                    (click)="navigate('/join/singup'); 
+                    changeDisplaySideMenu(false)" 
+                    class="menu-item">
+                        Cadastre-se
+                    </a>
+                </li>
+            </ul>
+            <div class="divider"> </div>
+            <ul class="menu-list">
+                <li class="menu-item">
+                    Carrinho de compras
+                </li>
+                <li class="menu-item">
+                    <section class="search-container-menu">
+                        <i class="pi pi-search"></i>
+                        <input type="text" [(ngModel)]="searchText" (keyup.enter)="search()" class="input-menu" placeholder="Pesquise por algo" maxlength="100">
+                    </section>
+                </li>
+            </ul>
+            
+            <!-- <div class="divider"></div>
+        
+            <h2 class="navbar-title">Main populares</h2>
+            <ul class="navbar-list categorys" >
+                <li>
+                    <a href="#">topico 1</a>
+                </li>
+                <li>
+                    <a href="#">topico 2</a>
+                </li>
+                <li>
+                    <a href="#">topico 3</a>
+                </li>
+                <li>
+                    <a href="#">topico 4</a>
+                </li>
+            </ul> -->
+        </nav>
+    }
+</span>
+
+<!-- </span> -->

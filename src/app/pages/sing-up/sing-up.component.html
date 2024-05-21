@@ -7,11 +7,11 @@
         <div class="card">
             <section class="form-container">
                 <form class="form">
-                    <input type="text" class="input name" [formControl]="fullName" placeholder="Nome Completo" maxlength="50">
+                    <input type="text" class="input separator" [formControl]="fullName" placeholder="Nome Completo" maxlength="50">
 
-                    <input type="text" class="input email" [formControl]="email" placeholder="E-mail" maxlength="50">
+                    <input type="text" class="input separator" [formControl]="email" placeholder="E-mail" maxlength="50">
 
-                    <input type="password" class="input password" [formControl]="password" placeholder="Password" maxlength="30">
+                    <app-password-component class="separator" (passwordEmitter)="getPassword($event)"></app-password-component>
                     
                     <button (submit)="submitForm()" class="button-form">Criar Conta</button>
                 </form>

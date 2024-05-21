@@ -36,10 +36,13 @@
             > .input {
                 padding: 10px;
                 font-size: 0.9em;
-                margin-bottom: 30px;
                 
                 outline: none;
                 border: 1px solid black;
+            }
+
+            .separator {
+                margin-bottom: 30px;
             }
     
             > .button-form {
