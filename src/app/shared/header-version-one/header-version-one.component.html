@@ -1,27 +1,16 @@
-<!-- <span #parent> -->
 <header class="header">
     
-    
-    <!-- <section class="separator"></section> -->
-
     <section class="title-container" routerLink="">
         <h1 class="tecflix-title" (click)="navigate('/')">TecFlix</h1>
     </section>
 
-    <section class="menu-bars-container" (click)="changeDisplaySideMenu(true)" #parentButton>
+    <section class="menu-bars-container" (click)="changeDisplaySideMenu()" #parentButton>
         @if (!displaySideMenu) {
             <i class="pi pi-bars" style="font-size: 1.2rem;"></i>
         } @else {
             <i class="pi pi-times" style="font-size: 1.2rem;"></i>
         }
     </section>
-<!--     
-    <section class="category-container">
-        <span>
-            Categorias
-        </span>
-        <i class="pi pi-angle-down"></i>
-    </section> -->
 
     <section class="search-container">
         <i class="pi pi-search"></i>
@@ -29,7 +18,6 @@
     </section>
     
     <section class="more-option-container">
-        <!-- <span>Seja um professor</span> -->
         <div class="cart-container">
             <i class="pi pi-shopping-cart" style="font-size: 1.2rem;"></i>
         </div>
@@ -37,14 +25,6 @@
         <a (click)="navigate('/join/singup')" class="button-link">Cadastrar-se </a>
     </section>
 
-    <!-- <section class="more-option-mobile-container">
-        <div class="search-mobile-container">
-            <i class="pi pi-search" style="font-size: 1.2rem;"></i>
-        </div>
-        <div class="cart-mobile-container">
-            <i class="pi pi-shopping-cart" style="font-size: 1.2rem;"></i>
-        </div>
-    </section> -->
 </header>
 <hr class="divider">
 <nav class="navbar-category">
@@ -62,28 +42,27 @@
     @if (displaySideMenu) {
         <nav class="menu-container">
             <ul class="menu-list">
-                <li class="menu-item">
+                <li>
                     <a 
                     (click)="navigate('/join/login'); 
-                    changeDisplaySideMenu(false)" 
-                    class="menu-item"
-                    >
+                    changeDisplaySideMenu()" 
+                    class="menu-item">
                         Fazer Login
                     </a>
                 </li>
-                <li class="menu-item">
+                <li>
                     <a 
                     (click)="navigate('/join/singup'); 
-                    changeDisplaySideMenu(false)" 
+                    changeDisplaySideMenu()" 
                     class="menu-item">
                         Cadastre-se
                     </a>
                 </li>
             </ul>
-            <div class="divider"> </div>
+            <hr>
             <ul class="menu-list">
                 <li class="menu-item">
-                    Carrinho de compras
+                    <a (click)="navigate('')">Carrinho de compras</a>
                 </li>
                 <li class="menu-item">
                     <section class="search-container-menu">
@@ -92,26 +71,6 @@
                     </section>
                 </li>
             </ul>
-            
-            <!-- <div class="divider"></div>
-        
-            <h2 class="navbar-title">Main populares</h2>
-            <ul class="navbar-list categorys" >
-                <li>
-                    <a href="#">topico 1</a>
-                </li>
-                <li>
-                    <a href="#">topico 2</a>
-                </li>
-                <li>
-                    <a href="#">topico 3</a>
-                </li>
-                <li>
-                    <a href="#">topico 4</a>
-                </li>
-            </ul> -->
         </nav>
     }
 </span>
-
-<!-- </span> -->
