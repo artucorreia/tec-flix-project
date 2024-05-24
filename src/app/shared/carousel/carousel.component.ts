@@ -222,7 +222,7 @@ export class CarouselCircular implements OnInit {
             {
                 breakpoint: '991px',
                 numVisible: 2,
-                numScroll: 1
+                numScroll: 2
             },
             {
                 breakpoint: '767px',

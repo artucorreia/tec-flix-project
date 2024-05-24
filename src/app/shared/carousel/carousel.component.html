@@ -21,15 +21,16 @@
                                             class="w-full border-round course-img" />
                                     </article>
                                     <article class="course-description-container">
-                                        <!-- <div> -->
-                                            <div class="course-title">
+                                            <h1 class="course-title">
                                                 {{curso.titulo}}
-                                            </div>
-                                            <div class="professor-name">
+                                            </h1>
+                                            <h3 class="professor-name">
                                                 {{curso.professor}}
-                                            </div>
+                                            </h3>
                                             <div class="rating-container">
-                                                <div class="rating">{{averageRating(curso.avaliacoes)}}</div>
+                                                <div class="rating">
+                                                    {{ averageRating(curso.avaliacoes) }}
+                                                </div>
                                                 <span class="stars-container">
                                                     <i class="pi pi-star-fill"></i>
                                                     <i class="pi pi-star-fill"></i>
@@ -38,12 +39,14 @@
                                                     <i class="pi pi-star"></i>
                                                 </span>
                                                 
-                                                <div class="total-ratings">({{curso.avaliacoes.length}})</div>
+                                                <span class="total-ratings">
+                                                    ( {{curso.avaliacoes.length}} )
+                                                </span>
+
                                             </div>
                                             <div class="price-container">
                                                 {{curso.valor | currency}}
                                             </div>
-                                        <!-- </div> -->
                                     </article>
                                 </div>
                                 
