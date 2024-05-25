@@ -4,6 +4,7 @@ import { Rating } from '../model/rating';
 import { Class } from '../model/class';
 import { Module } from '../model/module';
 import { Course } from '../model/course';
+import { UserCourse } from '../model/user-course';
 
 @Injectable({
   providedIn: 'root'
@@ -208,5 +209,17 @@ export class TecflixApiService {
 
   public getCourse(courseId: string): Course[] {
     return this.courses.filter((course) => course.id === courseId);
+  }
+
+  public getUserCouses(userId: string): UserCourse[] {
+    const userCourses: UserCourse[] = [
+      { userId: '101', cursoId: '1', dataCompra: new Date('2023-01-01') },
+      { userId: '101', cursoId: '2', dataCompra: new Date('2023-02-01') },
+      { userId: '102', cursoId: '3', dataCompra: new Date('2023-03-01') },
+      { userId: '103', cursoId: '4', dataCompra: new Date('2023-04-01') },
+      { userId: '104', cursoId: '5', dataCompra: new Date('2023-05-01') },
+      { userId: '104', cursoId: '1', dataCompra: new Date('2023-06-01') }
+    ];
+    return userCourses.filter(value => value.userId == userId);
   }
 }

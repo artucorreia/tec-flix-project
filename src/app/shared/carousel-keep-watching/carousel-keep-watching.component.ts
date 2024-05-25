@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { TecflixApiService } from '../../service/tecflix-api.service';
 
 @Component({
   selector: 'app-carousel-keep-watching',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './carousel-keep-watching.component.scss'
 })
 export class CarouselKeepWatchingComponent {
+  #tecflixApiService = inject(TecflixApiService);
 
+  ngOnInit() {
+    console.log(this.#tecflixApiService.getUserCouses('104'));
+  }
 }
