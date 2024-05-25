@@ -8,6 +8,11 @@ export const routes: Routes = [
         pathMatch: 'full'
     },
     {
+        path: 'course/:id',
+        loadComponent: () => 
+            import('./pages/course-details/course-details.component').then(p => p.CourseDetailsComponent),
+    },
+    {
         path: 'join',
         children: [
             {

@@ -1,0 +1,98 @@
+<app-header-version-one></app-header-version-one>
+<main class="container">
+    <section class="course-card">
+        <div class="course-info">
+            <h1 class="course-title">{{course[0].titulo}}</h1>
+            <p class="course-description">{{course[0].descricao}}</p>
+            
+            <div class="rating-container">
+                <span class="course-rating">
+                    {{averageRating(course[0].avaliacoes)}}
+                </span>
+            
+                <span class="stars-container">
+                    <i class="pi pi-star-fill"></i>
+                    <i class="pi pi-star-fill"></i>
+                    <i class="pi pi-star-fill"></i>
+                    <i class="pi pi-star-fill"></i>
+                    <i class="pi pi-star"></i>
+                </span>
+            
+                <span class="total-ratings">
+                    ({{course[0].avaliacoes.length}})
+                </span>
+            </div>
+            <div class="course-professor">
+                Professor: <a href="#">{{course[0].professor}}</a>
+            </div>
+            <div class="course-cetegorys">
+                Categorias: 
+                @for (category of course[0].categorias; track category) {
+                    <a href="#" class="category-link">{{category}}</a> 
+                }
+            </div>
+            
+            <div class="course-hours">
+                Tempo total: {{course[0].tempoTotal}}
+            </div>
+            @if (true) {
+                <div class="course-price">
+                    {{course[0].valor | currency }}
+                </div>
+            }
+            <button class="buy-button">comprar</button>
+        </div>
+
+        <div class="img-container">
+            <img [src]="course[0].imgCapa" alt="imagem capa {{course[0].titulo}}" class="img-course">
+        </div>
+    </section>
+
+    <section class="modules-container padding">
+        <div class="header-modules-container">
+            <h1>Conteúdo do curso</h1>
+            @if (displayAllClasses) {
+                <span (click)="toggleAllClassesVisibility()">Esconder tudo</span>
+            } @else {
+                <span (click)="toggleAllClassesVisibility()">Exibir tudo</span>
+            }
+            
+        </div>
+        @for (module of course[0].modulos; track module.id) {
+            <article class="module">
+                <div class="module-header" (click)="toggleClassesVisibility(module.id)">
+                    @if (
+                        hasTheId(module.id) || displayAllClasses
+                    ) {
+                        <i class="pi pi-angle-up"></i>
+                    } @else {
+                        <i class="pi pi-angle-down"></i>
+                    }
+
+                    <h2 class="module-title">
+                        {{module.titulo}}
+                    </h2>
+                    
+                    <div class="module-quantity-class">
+                        {{module.quantidadeAulas}}
+                    </div>
+                </div>
+                @if (
+                    hasTheId(module.id) || displayAllClasses
+                ) {
+                    @for (class of module.aulas; track class.id) {
+                        <div class="class">
+                            <i class="pi pi-video"></i>
+                            <h2 class="class-title">
+                                {{class.titulo}}
+                            </h2>
+                        </div>
+                    }
+                }
+            </article>
+        }
+    </section>
+
+</main>
+
+<app-footer></app-footer>
