@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { TecflixApiService } from '../../service/tecflix-api.service';
+import { TecflixApiService } from '../../service/tecflix-api/tecflix-api.service';
 
 @Component({
   selector: 'app-carousel-keep-watching',

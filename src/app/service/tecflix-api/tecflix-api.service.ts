@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { User } from '../model/user';
-import { Rating } from '../model/rating';
-import { Class } from '../model/class';
-import { Module } from '../model/module';
-import { Course } from '../model/course';
-import { UserCourse } from '../model/user-course';
+import { User } from '../../model/user';
+import { Rating } from '../../model/rating';
+import { Class } from '../../model/class';
+import { Module } from '../../model/module';
+import { Course } from '../../model/course';
+import { UserCourse } from '../../model/user-course';
 
 @Injectable({
   providedIn: 'root'

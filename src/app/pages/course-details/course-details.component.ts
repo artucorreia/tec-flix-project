@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { TecflixApiService } from '../../service/tecflix-api.service';
+import { TecflixApiService } from '../../service/tecflix-api/tecflix-api.service';
 import { Course } from '../../model/course';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderVersionOneComponent } from '../../shared/header-version-one/header-version-one.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { Rating } from '../../model/rating';
@@ -17,6 +17,7 @@ import { CurrencyPipe } from '@angular/common';
 export class CourseDetailsComponent {
   #tecflixApiService = inject(TecflixApiService);
   #route = inject(ActivatedRoute);
+  #router = inject(Router);
   
   public urlParamsId: string | null = '';
   public course: Course[] = [];
@@ -63,5 +64,9 @@ export class CourseDetailsComponent {
     const index = this.displayClasses.indexOf(moduleId);
     if (index != -1) return true;
     return false;
+  }
+
+  public navigate(path: string) {
+    this.#router.navigate([path])
   }
 }

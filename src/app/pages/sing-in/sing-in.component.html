@@ -6,10 +6,10 @@
         </section>
         <div class="card">
             <section class="form-container">
-                <form class="form">
-                    <input type="text" class="input separator" id="email" [formControl]="email" placeholder="E-mail" maxlength="50">
+                <form class="form" (ngSubmit)="submitForm()" [formGroup]="loginForm">
+                    <input type="text" class="input separator" id="email" formControlName="email" placeholder="E-mail" maxlength="50">
                     <app-password-component  class="separator" (passwordEmitter)="getPassword($event)" ></app-password-component>
-                    <button (submit)="submitForm()" class="button-form">Fazer Login</button>
+                    <button class="button-form">Fazer Login</button>
                 </form>
             </section>
             <section class="option-container">

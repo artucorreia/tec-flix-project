@@ -3,13 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-header-version-one',
+  selector: 'app-header-logged',
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './header-version-one.component.html',
-  styleUrl: './header-version-one.component.scss'
+  templateUrl: './header-logged.component.html',
+  styleUrl: './header-logged.component.scss'
 })
-export class HeaderVersionOneComponent {
+export class HeaderLoggedComponent {
   public searchText: string = "";
   public displaySideMenu: boolean = false;
   

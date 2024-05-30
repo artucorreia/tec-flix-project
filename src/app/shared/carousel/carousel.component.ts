@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
-import { TecflixApiService } from '../../service/tecflix-api.service';
+import { TecflixApiService } from '../../service/tecflix-api/tecflix-api.service';
 import { Course } from '../../model/course';
 import { Rating } from '../../model/rating';
 
