@@ -44,12 +44,12 @@
 
 
 .more-option-container {
-    width: 275px;
+    width: 30%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    > .cart-container {
+    > .icon-container {
         width: 35px;
         height: 35px;
         display: flex;
@@ -60,7 +60,7 @@
         transition: 0.2s;
     }
 
-    .cart-container:hover {
+    .icon-container:hover {
         cursor: pointer;
         background-color: $primary-color-effect;
         color: $white;

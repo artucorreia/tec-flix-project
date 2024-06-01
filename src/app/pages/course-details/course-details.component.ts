@@ -20,7 +20,9 @@ export class CourseDetailsComponent {
   #router = inject(Router);
   
   public urlParamsId: string | null = '';
-  public course: Course[] = [];
+  public course: Course | null = null;
+  public ratings: Rating[] = []
+
   public displayAllClasses: boolean = false;
   public displayClasses: string[] = [];
 
@@ -28,23 +30,36 @@ export class CourseDetailsComponent {
 
   ngOnInit(): void {
     this.getCourse();
+    this.getRatings();
   }
 
   private getCourse() {
     this.#route.paramMap.subscribe(params => this.urlParamsId = params.get('id'))
     if (this.urlParamsId) {
-      this.course = this.#tecflixApiService.getCourse(this.urlParamsId);
+      
+      this.#tecflixApiService.getCourse(this.urlParamsId).subscribe({
+        next: course => this.course = course,
+        error: error => error
+      });
     }
-    console.log(this.course)
   }
 
-  public averageRating(ratings: Rating[]): number {
-    let sumRating: number = 0;
-    for (let rating of ratings) {
-        sumRating += rating.nota;
+  public getRatings() {
+    if (this.course) {
+      this.#tecflixApiService.getRatings(this.course.id).subscribe({
+        next: ratings => this.ratings = ratings,
+        error: error => error 
+      })
     }
-    return sumRating / ratings.length;
   }
+
+  // public averageRating(ratings: Rating[]): number {
+  //   let sumRating: number = 0;
+  //   for (let rating of ratings) {
+  //       sumRating += rating.nota;
+  //   }
+  //   return sumRating / ratings.length;
+  // }
 
   public toggleAllClassesVisibility() {
     this.displayAllClasses = !this.displayAllClasses;

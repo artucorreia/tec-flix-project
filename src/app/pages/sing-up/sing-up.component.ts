@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HeaderVersionOneComponent } from '../../shared/header-version-one/header-version-one.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { PasswordComponentComponent } from '../../shared/password-component/password-component.component';
+import { AuthService } from '../../service/auth/auth.service';
 
 @Component({
   selector: 'app-sing-up',
@@ -12,14 +13,33 @@ import { PasswordComponentComponent } from '../../shared/password-component/pass
   styleUrl: './sing-up.component.scss'
 })
 export class SingUpComponent {
-  public fullName = new FormControl('');
-  public email = new FormControl('');
-  public password = new FormControl('');
-  
-  public getPassword(event: string) {
+  #authService = inject(AuthService);
+  #router = inject(Router);
+  #formBuilder = inject(FormBuilder);
 
+  public singUpForm: FormGroup = this.#formBuilder.group({
+    fullName: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]]
+  })
+  
+  public getPassword(event: string): void {
+    this.singUpForm.get("password")?.setValue(event);
   }
 
-  submitForm() {}
+  public submitForm(): void {
+    if (this.singUpForm.valid) {
+      const fullName = this.singUpForm.get("fullName")?.value;
+      const email = this.singUpForm.get("email")?.value;
+      const password = this.singUpForm.get("password")?.value;
+      
+      this.#authService.singUp(fullName, email, password).subscribe({
+        next: res => res,
+        error: error => error
+      })
+
+      this.#router.navigate(['join/login'])
+    }
+  }
 
 }

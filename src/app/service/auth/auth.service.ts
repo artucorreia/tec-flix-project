@@ -20,6 +20,15 @@ export class AuthService {
     return this.http.get<User2[]>(`${this.url}user`, {params: params});
   }
 
+  public singUp(fullName: string, email: string, password: string): Observable<User2> {
+    return this.http.post<User2>(`${this.url}user`, {
+      fullName: fullName,
+      email: email,
+      password: this.hashCode(password),
+      ativo: true
+    });
+  }
+
   public hashCode(string: string): string {
     var hash = 0, i, chr;
     

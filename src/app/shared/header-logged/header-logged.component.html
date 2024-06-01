@@ -1,7 +1,7 @@
 <header class="header">
     
     <section class="title-container" routerLink="">
-        <h1 class="tecflix-title" (click)="navigate('/')">TecFlix</h1>
+        <h1 class="tecflix-title" (click)="navigate('in')">TecFlix</h1>
     </section>
 
     <section class="menu-bars-container" (click)="changeDisplaySideMenu()" #parentButton>
@@ -18,11 +18,15 @@
     </section>
     
     <section class="more-option-container">
-        <div class="cart-container" (click)="navigate('/join/login')">
+        <a (click)="navigate('in')" class="button-link">Seja um Professor</a>
+        <a (click)="navigate('in')" class="button-link">Meus Cursos</a>
+        <div class="icon-container" (click)="navigate('/join/login')">
             <i class="pi pi-shopping-cart" style="font-size: 1.2rem;"></i>
         </div>
-        <a (click)="navigate('')" class="button-link">Meus Cursos </a>
-        <a (click)="navigate('/join/singup')" class="button-link">Cadastrar-se </a>
+        <div class="icon-container" (click)="navigate('in')">
+            <i class="pi pi-user" style="font-size: 1.2rem;"></i>
+        </div>
+        <!-- <a (click)="navigate('/join/singup')" class="button-link">Cadastrar-se </a> -->
     </section>
 
 </header>

@@ -1,9 +1,8 @@
-import { User } from "./user";
-
 export interface Rating {
     id: string;
-    cursoId: string;
-    userId: string;
-    nota: number;
-    user: User;
+    grade: number;
+    comment: string;
+    date: Date;
+    user_id: string;
+    course_id: string;
 }

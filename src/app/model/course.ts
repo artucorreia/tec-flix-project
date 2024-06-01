@@ -3,13 +3,10 @@ import { Rating } from "./rating";
 
 export interface Course {
     id: string;
-    titulo: string;
-    descricao: string;
-    imgCapa: string;
-    valor: number;
-    tempoTotal: string;
-    professor: string;
-    categorias: string[];
-    avaliacoes: Rating[];
-    modulos: Module[];
+    title: string;
+    course_duration: string;
+    image_cape: string;
+    description: string;
+    price: number;
+    professor_id: string;
 }

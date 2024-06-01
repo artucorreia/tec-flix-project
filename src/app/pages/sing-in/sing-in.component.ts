@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, MaxLengthValidator, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HeaderVersionOneComponent } from '../../shared/header-version-one/header-version-one.component';
 import { Router, RouterModule } from '@angular/router';
 import { PasswordComponentComponent } from '../../shared/password-component/password-component.component';
@@ -18,12 +18,14 @@ export class SingInComponent {
   #formBuilder = inject(FormBuilder);
 
   public loginForm: FormGroup = this.#formBuilder.group({
-    email: ['', [Validators.required, Validators.email] ],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]]
   })
 
   public getPassword(event: string) {
-    this.loginForm.get("password")?.setValue(event);
+    this.loginForm.get("password")?.setValue(
+      this.#authService.hashCode(event)
+    );
   }
 
   private setLoginData(): void {

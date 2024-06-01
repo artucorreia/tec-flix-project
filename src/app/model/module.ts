@@ -2,8 +2,7 @@ import { Class } from "./class";
 
 export interface Module {
     id: string;
-    titulo: string;
-    quantidadeAulas: number;
-    cursoId: string;
-    aulas: Class[];
+    title: string;
+    module_duration: string
+    course_id: string;
 }

@@ -12,6 +12,11 @@ export class CarouselKeepWatchingComponent {
   #tecflixApiService = inject(TecflixApiService);
 
   ngOnInit() {
-    console.log(this.#tecflixApiService.getUserCouses('104'));
+    let teste: string | null = sessionStorage.getItem("email");
+    console.log(teste)
+    // const courses = this.#tecflixApiService.getUserCouses('104');
+    // for (let c of courses) {
+    //   console.log(c);
+    // }
   }
 }
