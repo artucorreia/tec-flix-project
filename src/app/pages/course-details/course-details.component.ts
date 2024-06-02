@@ -5,23 +5,51 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderVersionOneComponent } from '../../shared/header-version-one/header-version-one.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { Rating } from '../../model/rating';
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe, JsonPipe } from '@angular/common';
+import { elementAt, forkJoin } from 'rxjs';
+import { Professor } from '../../model/professor';
+import { User } from '../../model/user';
+import { Category } from '../../model/category';
+import { CourseCategories } from '../../model/course-categories';
+import { Module } from '../../model/module';
+import { Class } from '../../model/class';
+
+interface CourseAndRatings {
+  course: Course;
+  content: {module: Module, classes: Class[]}[];
+  categories: Category[];
+  ratings: Rating[];
+  professor: Professor;
+  user: User;
+}
 
 @Component({
   selector: 'app-course-details',
   standalone: true,
-  imports: [HeaderVersionOneComponent, FooterComponent, CurrencyPipe],
+  imports: [HeaderVersionOneComponent, FooterComponent, CurrencyPipe, JsonPipe, DatePipe, CommonModule],
   templateUrl: './course-details.component.html',
-  styleUrl: './course-details.component.scss'
+  styleUrls: ['./course-details.component.scss']
 })
+
 export class CourseDetailsComponent {
   #tecflixApiService = inject(TecflixApiService);
   #route = inject(ActivatedRoute);
   #router = inject(Router);
   
-  public urlParamsId: string | null = '';
-  public course: Course | null = null;
-  public ratings: Rating[] = []
+  private urlParamsId: string | null = '';
+
+  private course: Course[] = [];
+  private courseModules: Module[] = [];
+  public courseClasses: Class[] = [];
+
+  private categories: Category[] = [];
+  private courseCategories: CourseCategories[] = [];
+  private allProfessors: Professor[] = [];
+  private allRatings: Rating[] = [];
+  private allUsers: User[] = [];
+
+
+  public allData: CourseAndRatings | null = null;
 
   public displayAllClasses: boolean = false;
   public displayClasses: string[] = [];
@@ -29,46 +57,111 @@ export class CourseDetailsComponent {
   constructor() {}
 
   ngOnInit(): void {
-    this.getCourse();
-    this.getRatings();
+    this.loadData();
   }
 
-  private getCourse() {
+  private loadData(): void {
     this.#route.paramMap.subscribe(params => this.urlParamsId = params.get('id'))
-    if (this.urlParamsId) {
-      
-      this.#tecflixApiService.getCourse(this.urlParamsId).subscribe({
-        next: course => this.course = course,
-        error: error => error
-      });
+    
+    if (!this.urlParamsId) return;
+    
+    forkJoin({
+      course: this.#tecflixApiService.getCourse(this.urlParamsId),
+      modules: this.#tecflixApiService.getModulesByCourseId(this.urlParamsId),
+      classes: this.#tecflixApiService.getClassesByModuleId(this.urlParamsId),
+      ratings: this.#tecflixApiService.getAllRatings(),
+      courseCategories: this.#tecflixApiService.getCourseCategories(),
+      professors: this.#tecflixApiService.getAllProfessors(),
+      users: this.#tecflixApiService.getAllUsers(),
+    }).subscribe({
+      next: ({course, modules, classes, courseCategories, ratings, professors, users}) => {
+        this.course = course;
+        this.courseModules = modules;
+        this.courseClasses = classes;
+        this.courseCategories = courseCategories;
+        this.allRatings = ratings;
+        this.allProfessors = professors;
+        this.allUsers = users;
+        
+        this.getCourseCategories();
+        this.mapData();
+      },
+      error: error => console.error(error)
+    })
+  }
+
+  private getCourseRatings(): Rating[] {
+    return this.allRatings.filter(rating => rating.course_id == this.course[0].id);
+  }
+
+  private getCourseCategories(): void {
+    const courseCategories: CourseCategories[] = 
+      this.courseCategories.filter(element => element.course_id == this.course[0].id);
+    for (let category of courseCategories) {
+      this.getCategoryById(category.category_id);
     }
   }
 
-  public getRatings() {
-    if (this.course) {
-      this.#tecflixApiService.getRatings(this.course.id).subscribe({
-        next: ratings => this.ratings = ratings,
-        error: error => error 
-      })
+  private getCategoryById(id: string): void {
+    this.#tecflixApiService.getCategoryById(id).subscribe({
+      next: value => this.categories.push(value[0]),
+      error: error => console.error(error)
+    })
+  }
+
+  private getCourseProfessor(): Professor {
+    return this.allProfessors.filter(professor => professor.id == this.course[0].professor_id)[0];
+  }
+
+  private getCourseProfessorUser(): User {
+    return this.allUsers.filter(user => user.id == this.getCourseProfessor().user_id)[0];
+  }
+
+
+  private getModuleClasses(moduleId: string): Class[] {
+    return this.courseClasses.filter(element => element.module_id == moduleId);
+  }
+
+  private getContentCourse() {
+    let content: {module: Module, classes: Class[]}[] = [];
+    for (let module of this.courseModules) {
+      content.push({module: module, classes: this.getModuleClasses(module.id)})
+    }
+    return content;
+  }
+
+  private mapData() {
+    if (!this.course) return;
+
+    this.allData = {
+      course: this.course[0],
+      content: this.getContentCourse(),
+      categories: this.categories,
+      ratings: this.getCourseRatings(),
+      professor: this.getCourseProfessor(),
+      user: this.getCourseProfessorUser(),
     }
   }
 
-  // public averageRating(ratings: Rating[]): number {
-  //   let sumRating: number = 0;
-  //   for (let rating of ratings) {
-  //       sumRating += rating.nota;
-  //   }
-  //   return sumRating / ratings.length;
-  // }
+  public averageRating(ratings: Rating[] | undefined): number {
+    if (!ratings) return 0;
+
+    let sumRating: number = 0;
+    for (let rating of ratings) {
+      sumRating += rating.grade;
+    }
+
+    return sumRating / ratings.length;
+  }
 
   public toggleAllClassesVisibility() {
     this.displayAllClasses = !this.displayAllClasses;
   }
 
   public toggleClassesVisibility(id: string) {
-    const hasTheId: string | undefined = this.displayClasses.find(value => value === id); 
+    // const hasTheId: string | undefined = this.displayClasses.find(value => value === id); 
     
-    if (hasTheId) {
+    if (this.hasTheId(id)) {
       this.displayClasses = this.displayClasses.filter(value => value !== id)
     } else {
       this.displayClasses.push(id);

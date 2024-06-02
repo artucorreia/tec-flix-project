@@ -1,14 +1,14 @@
 <app-header-version-one></app-header-version-one>
 
-<main class="container">
+<main class="container" *ngIf="allData">
     <section class="course-card">
         <div class="course-info">
-            <h1 class="course-title">{{course?.title}}</h1>
-            <p class="course-description">{{course?.description}}</p>
+            <h1 class="course-title">{{ allData.course.title}}</h1>
+            <p class="course-description">{{allData.course.description}}</p>
             
             <div class="rating-container">
                 <span class="course-rating">
-                    <!-- {{averageRating(ratings)}} -->
+                    {{ averageRating(allData.ratings)  }}
                 </span>
             
                 <span class="stars-container">
@@ -20,25 +20,25 @@
                 </span>
             
                 <span class="total-ratings">
-                    ({{ratings.length}})
+                    ({{allData.ratings.length}})
                 </span>
             </div>
             <div class="course-professor">
-                Professor: <a href="#">{{course?.professor_id}}</a>
+                Professor: <a href="#">{{allData.user.full_name}}</a>
             </div>
-            <!-- <div class="course-cetegorys">
-                Categorias: 
-                @for (category of course?.categorias; track category) {
-                    <a href="#" class="category-link">{{category}}</a> 
+            <div class="course-cetegorys">
+                Categorias:
+                @for (category of allData.categories; track category) {
+                    <a href="#" class="category-link">{{category.name }}</a> 
                 }
-            </div> -->
+            </div>
             
             <div class="course-hours">
-                Tempo total: {{course?.course_duration}}
+                Tempo total: {{allData.course.course_duration}}
             </div>
             @if (true) {
                 <div class="course-price">
-                    {{course?.price | currency }}
+                    {{allData.course.price| currency }}
                 </div>
             }
             <div class="buy-options-container">
@@ -50,7 +50,7 @@
         </div>
 
         <div class="img-container">
-            <img [src]="course?.image_cape" [alt]="'imagem capa ' + course?.title" class="img-course">
+            <img [src]="allData.course.image_cape" [alt]="'imagem capa ' + allData.course.title" class="img-course">
         </div>
     </section>
 
@@ -64,11 +64,11 @@
             }
             
         </div>
-        <!-- @for (module of course?.modulos; track module.id) {
+        @for (group of allData.content; track group) {
             <article class="module">
-                <div class="module-header" (click)="toggleClassesVisibility(module.id)">
+                <div class="module-header" (click)="toggleClassesVisibility(group.module.id)">
                     @if (
-                        hasTheId(module.id) || displayAllClasses
+                        hasTheId(group.module.id) || displayAllClasses
                     ) {
                         <i class="pi pi-angle-up"></i>
                     } @else {
@@ -76,27 +76,23 @@
                     }
 
                     <h2 class="module-title">
-                        {{module.titulo}}
+                        {{group.module.title}}
                     </h2>
-                    
-                    <div class="module-quantity-class">
-                        {{module.quantidadeAulas}}
-                    </div>
                 </div>
                 @if (
-                    hasTheId(module.id) || displayAllClasses
+                    hasTheId(group.module.id) || displayAllClasses
                 ) {
-                    @for (class of module.aulas; track class.id) {
+                    @for (class of group.classes; track class) {
                         <div class="class">
                             <i class="pi pi-video"></i>
                             <h2 class="class-title">
-                                {{class.titulo}}
+                                {{class.title}}
                             </h2>
                         </div>
                     }
                 }
             </article>
-        } -->
+        }
     </section>
 
 </main>

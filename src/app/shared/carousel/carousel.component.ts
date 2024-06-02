@@ -84,9 +84,9 @@ export class Carousel {
 
         this.courses.forEach(element => {
             const professor: Professor | undefined = 
-                this.professors.find(prof => prof.id === element.professor_id);
+                this.professors.find(professor => professor.id == element.professor_id);
             const user: User | undefined = 
-                this.users.find(usr => usr.id === professor?.user_id);
+                this.users.find(user => user.id == professor?.user_id);
             const courseRatings: Rating[] = 
                 this.ratings.filter(rating => rating.course_id == element.id);
             

@@ -1,7 +1,7 @@
 export interface Class {
     id: string;
-    titulo: string;
-    descricao: string;
-    videoMP4: string;
-    moduloId: string;
+    title: string;
+    class_duraration: Date;
+    video: string;
+    module_id: string;
 }

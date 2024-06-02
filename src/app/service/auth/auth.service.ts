@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User2 } from '../../model/user2';
+import { User } from '../../model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +11,17 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  public user(): Observable<User2[]> {
-    return this.http.get<User2[]>(`${this.url}user`);
+  public user(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}users`);
   }
 
-  public userByEmail(email: string): Observable<User2[]> {
+  public userByEmail(email: string): Observable<User[]> {
     const params = {email: email};
-    return this.http.get<User2[]>(`${this.url}user`, {params: params});
+    return this.http.get<User[]>(`${this.url}users`, {params: params});
   }
 
-  public singUp(fullName: string, email: string, password: string): Observable<User2> {
-    return this.http.post<User2>(`${this.url}user`, {
+  public singUp(fullName: string, email: string, password: string): Observable<User> {
+    return this.http.post<User>(`${this.url}users`, {
       fullName: fullName,
       email: email,
       password: this.hashCode(password),

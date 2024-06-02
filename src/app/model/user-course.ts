@@ -1,5 +1,5 @@
 export interface UserCourse {
-    userId: string;
-    cursoId: string;
-    dataCompra: Date;
+    user_id: string;
+    curso_id: string;
+    purchaseDate: Date;
 }

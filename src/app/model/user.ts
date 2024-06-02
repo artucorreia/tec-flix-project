@@ -1,7 +1,7 @@
 export interface User {
     id: string;
-    fullName: string;
+    full_name: string;
     email: string;
     password: string;
-    ativo: boolean
+    active: boolean
 }

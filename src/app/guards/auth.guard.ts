@@ -2,7 +2,7 @@ import { CanActivateFn } from '@angular/router';
 import { AuthService } from '../service/auth/auth.service';
 import { inject } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { User2 } from '../model/user2';
+import { User } from '../model/user';
 
 export const authGuard: CanActivateFn = async (route, state) => {
   const authService = inject(AuthService);
@@ -13,7 +13,7 @@ export const authGuard: CanActivateFn = async (route, state) => {
   if (email && password) {
 
     try {
-      const user: User2[] = await firstValueFrom(authService.userByEmail(email));
+      const user: User[] = await firstValueFrom(authService.userByEmail(email));
       
       if (
         user 
@@ -24,7 +24,7 @@ export const authGuard: CanActivateFn = async (route, state) => {
     
     } 
     catch (error) {
-      console.log(error);
+      console.error(error);
       return false;
     }
   }
