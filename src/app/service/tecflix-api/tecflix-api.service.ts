@@ -6,7 +6,7 @@ import { Module } from '../../model/module';
 import { Course } from '../../model/course';
 import { UserCourse } from '../../model/user-course';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin, map, mergeMap } from 'rxjs';
 import { Professor } from '../../model/professor';
 import { Category } from '../../model/category';
 import { CourseCategories } from '../../model/course-categories';
@@ -47,8 +47,22 @@ export class TecflixApiService {
   }
 
   public getClassesByModuleId(moduleId: string): Observable<Class[]> {
-    const params = {module_id: moduleId}
+    const params = {module_id: moduleId};
     return this.#http.get<Class[]>(`${this.url}classes`, {params: params});
+  }
+
+  public getClassesByCourseId(courseId: string): Observable<Class[]> {
+    return this.getModulesByCourseId(courseId).pipe(
+      mergeMap((modules: Module[]) => {
+        
+        const classObservables = modules.map(module => this.getClassesByModuleId(module.id));
+        
+        return forkJoin(classObservables).pipe(
+          map((classesArray: Class[][]) => classesArray.flat())
+        );
+
+      })
+    );
   }
 
   public getModulesByCourseId(couseId: string): Observable<Module[]> {

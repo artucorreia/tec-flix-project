@@ -78,7 +78,7 @@ export class CourseDetailsComponent {
     forkJoin({
       course: this.#tecflixApiService.getCourse(this.urlParamsId),
       modules: this.#tecflixApiService.getModulesByCourseId(this.urlParamsId),
-      classes: this.#tecflixApiService.getClassesByModuleId(this.urlParamsId),
+      classes: this.#tecflixApiService.getClassesByCourseId(this.urlParamsId),
       ratings: this.#tecflixApiService.getAllRatings(),
       courseCategories: this.#tecflixApiService.getCourseCategories(),
       professors: this.#tecflixApiService.getAllProfessors(),
@@ -133,7 +133,7 @@ export class CourseDetailsComponent {
   }
 
   private getContentCourse(): {module: Module, classes: Class[]}[] {
-    let content: {module: Module, classes: Class[]}[] = [];
+    const content: {module: Module, classes: Class[]}[] = [];
     for (let module of this.courseModules) {
       content.push({module: module, classes: this.getModuleClasses(module.id)})
     }
