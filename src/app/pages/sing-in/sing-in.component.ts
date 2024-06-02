@@ -1,9 +1,17 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, MaxLengthValidator, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HeaderVersionOneComponent } from '../../shared/header-version-one/header-version-one.component';
-import { Router, RouterModule } from '@angular/router';
-import { PasswordComponentComponent } from '../../shared/password-component/password-component.component';
+
+// service
 import { AuthService } from '../../service/auth/auth.service';
+
+// router
+import { Router, RouterModule } from '@angular/router';
+
+// form
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
+// components
+import { HeaderVersionOneComponent } from '../../shared/header-version-one/header-version-one.component';
+import { PasswordComponentComponent } from '../../shared/password-component/password-component.component';
 
 @Component({
   selector: 'app-sing-in',

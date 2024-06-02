@@ -1,5 +1,9 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+
+// form
 import { FormsModule } from '@angular/forms';
+
+// router
 import { Router } from '@angular/router';
 
 @Component({

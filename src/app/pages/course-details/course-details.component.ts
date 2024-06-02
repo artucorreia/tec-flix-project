@@ -1,12 +1,22 @@
 import { Component, inject } from '@angular/core';
+
+// service
 import { TecflixApiService } from '../../service/tecflix-api/tecflix-api.service';
-import { Course } from '../../model/course';
+
+// router
 import { ActivatedRoute, Router } from '@angular/router';
+
+// components
 import { HeaderVersionOneComponent } from '../../shared/header-version-one/header-version-one.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
+import { CommonModule, CurrencyPipe} from '@angular/common';
+
+// rxjs
+import { forkJoin } from 'rxjs';
+
+// interfaces
+import { Course } from '../../model/course';
 import { Rating } from '../../model/rating';
-import { CommonModule, CurrencyPipe, DatePipe, JsonPipe } from '@angular/common';
-import { elementAt, forkJoin } from 'rxjs';
 import { Professor } from '../../model/professor';
 import { User } from '../../model/user';
 import { Category } from '../../model/category';
@@ -14,7 +24,7 @@ import { CourseCategories } from '../../model/course-categories';
 import { Module } from '../../model/module';
 import { Class } from '../../model/class';
 
-interface CourseAndRatings {
+interface CourseData {
   course: Course;
   content: {module: Module, classes: Class[]}[];
   categories: Category[];
@@ -26,7 +36,7 @@ interface CourseAndRatings {
 @Component({
   selector: 'app-course-details',
   standalone: true,
-  imports: [HeaderVersionOneComponent, FooterComponent, CurrencyPipe, JsonPipe, DatePipe, CommonModule],
+  imports: [HeaderVersionOneComponent, FooterComponent, CurrencyPipe, CommonModule],
   templateUrl: './course-details.component.html',
   styleUrls: ['./course-details.component.scss']
 })
@@ -49,7 +59,7 @@ export class CourseDetailsComponent {
   private allUsers: User[] = [];
 
 
-  public allData: CourseAndRatings | null = null;
+  public allData: CourseData | null = null;
 
   public displayAllClasses: boolean = false;
   public displayClasses: string[] = [];
@@ -122,7 +132,7 @@ export class CourseDetailsComponent {
     return this.courseClasses.filter(element => element.module_id == moduleId);
   }
 
-  private getContentCourse() {
+  private getContentCourse(): {module: Module, classes: Class[]}[] {
     let content: {module: Module, classes: Class[]}[] = [];
     for (let module of this.courseModules) {
       content.push({module: module, classes: this.getModuleClasses(module.id)})

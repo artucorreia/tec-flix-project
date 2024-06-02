@@ -51,14 +51,6 @@ export class TecflixApiService {
     return this.#http.get<Class[]>(`${this.url}classes`, {params: params});
   }
 
-  public getClassesByCourseId(courseId: string): Observable<Class[]> {
-    let teste = this.getModulesByCourseId(courseId);
-    console.log(teste);
-    // this.getClassesByModuleId()
-    // const params = {module_id: moduleId}
-    return this.#http.get<Class[]>(`${this.url}classes`);
-  }
-
   public getModulesByCourseId(couseId: string): Observable<Module[]> {
     const params = {course_id: couseId}
     return this.#http.get<Module[]>(`${this.url}modules`, {params: params});

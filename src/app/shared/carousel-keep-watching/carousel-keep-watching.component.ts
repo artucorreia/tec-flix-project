@@ -1,4 +1,6 @@
 import { Component, inject } from '@angular/core';
+
+// service
 import { TecflixApiService } from '../../service/tecflix-api/tecflix-api.service';
 
 @Component({

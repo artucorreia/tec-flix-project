@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+
+// primeng
 import { CarouselModule } from 'primeng/carousel';
-import { ButtonModule } from 'primeng/button';
+
+// interfaces
 import { Ads } from '../../model/ads';
 
 

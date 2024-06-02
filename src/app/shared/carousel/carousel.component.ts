@@ -1,12 +1,22 @@
 import { Component, inject } from '@angular/core';
-import { CarouselModule } from 'primeng/carousel';
-import { RouterModule } from '@angular/router';
+
+// service
 import { TecflixApiService } from '../../service/tecflix-api/tecflix-api.service';
+
+// primeng
+import { CarouselModule } from 'primeng/carousel';
+
+// router
+import { RouterModule } from '@angular/router';
+
+// rxjs
+import { forkJoin } from 'rxjs';
+
+// interfaces
 import { Course } from '../../model/course';
 import { Rating } from '../../model/rating';
 import { Professor } from '../../model/professor';
 import { User } from '../../model/user';
-import { forkJoin } from 'rxjs';
 
 interface CoursesAndProfessorAndUser {
     course: Course;
